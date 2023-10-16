@@ -4,11 +4,11 @@ import numpy as np
 import pandas as pd
 import Levenshtein
 
-st.title("Levenshtein distance")
+st.title("Levenshtein-Distanz")
 
-st.write('''The edit distance is calculated between pairs of words in the first two columns in 
-         an input csv-file. The results are provided in the form of a pairwise distance matrix 
-         in an xlsx-file.''')
+st.write('''Die Editierdistanz wird zwischen den Wordpaaren in den ersten beiden Spalten
+         der Input csv-Datei berechnet. Die Resultate werden in Form einer paarweisen Distanz-
+         Matrix in einem xlsx-File ausgegeben.''')
 
 # strip_accents = None
 # lowercase = False
@@ -22,25 +22,25 @@ st.write('''The edit distance is calculated between pairs of words in the first 
 # if lower:
 #    lowercase = True
 
-header_row = st.checkbox('Input file contains header row (exclude from distance calculation)')
+header_row = st.checkbox('Input-Datei enthält Kopfeile (wird in der Distanzberechnung nicht berücksichtigt)')
 
-st.write('''The 3 different types of edit operations can be assigned different weights in the 
-         distance calculation:''')
+st.write('''Den 3 erlaubten Editier-Operationen können unterschiedliche Gewichtungen in der
+         Distanz-Berechnung zugewiesen werden:''')
 col1, col2, col3 = st.columns(3)
 with col1:
-    weight_ins = st.number_input(label='Weight for insertions', value=1)
+    weight_ins = st.number_input(label='Gewicht für Einfügen', value=1)
 
 with col2:
-    weight_del = st.number_input(label='Weight for deletions', value=1)
+    weight_del = st.number_input(label='Gewicht für Löschen', value=1)
 
 with col3:
-    weight_sub = st.number_input(label='Weight for substitutions', value=1)
+    weight_sub = st.number_input(label='Gewicht für Ersetzen', value=1)
 
 # only_pairwise = st.checkbox('''Calculate levenshtein distance only between pairs of words in 
 #                             the same row instead of all unique pairs of words in the first 
 #                             two columns.''')
 
-inp_file = st.file_uploader("Choose one csv file")
+inp_file = st.file_uploader("Wählen Sie eine csv-Datei")
 
 if inp_file is not None:
         
@@ -74,7 +74,7 @@ if inp_file is not None:
         df_dists.to_excel(writer, sheet_name='Levenshtein distances', index=True)
 
     st.download_button(
-        label="Download levenshtein distances as xlsx",
+        label="Levenshtein-Distanzen als xlsx-Datei herunterladen",
         data=buffer,
         file_name='levenshtein_dists.xlsx',
         mime='application/vnd.ms-excel',
