@@ -1,6 +1,7 @@
 import streamlit as st
 import io
 import numpy as np
+import csv
 import pandas as pd
 import Levenshtein
 
@@ -48,7 +49,12 @@ if inp_file is not None:
         header = 0
     else:
         header = None
-    df_inp = pd.read_csv(inp_file, delimiter=';', header=header)
+
+    bla = io.StringIO(inp_file.getvalue().decode("utf-8"))
+
+    dialect = csv.Sniffer().sniff(bla.read())
+
+    df_inp = pd.read_csv(inp_file, dialect=dialect, header=header)
 
     bla = list(df_inp[~df_inp[df_inp.columns[0]].isna()][df_inp.columns[0]].values)
 
